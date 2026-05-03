@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>نظام إدارة إقامة فاتح</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- ربط مكتبة Font Awesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="logo.png" alt="لوغو الإقامة">
+            <h3>إقامة فاتح</h3>
+        </div>
+        <nav>
+            <button class="active"><i class="fa fa-calendar"></i> التخطيط (Planning)</button>
+            <button><i class="fa fa-bed"></i> الشقق</button>
+            <button><i class="fa fa-users"></i> الحجوزات</button>
+            <button><i class="fa fa-file-invoice"></i> الفواتير</button>
+        </nav>
+    </div>
+
+    <main class="content">
+        <header class="stats-bar">
+            <div class="stat-card"><span>إجمالي الشقق</span> <strong>19</strong></div>
+            <div class="stat-card green"><span>متاحة</span> <strong>16</strong></div>
+            <div class="stat-card red"><span>محجوزة</span> <strong>3</strong></div>
+            <div class="stat-card orange"><span>نسبة الإشغال</span> <strong>16%</strong></div>
+        </header>
+
+        <section class="planning-section">
+            <div class="table-controls">
+                <button class="btn-add">+ حجز جديد</button>
+                <input type="month" value="2026-05">
+            </div>
+            
+            <div class="table-wrapper">
+                <table id="planningTable">
+                    <thead>
+                        <tr>
+                            <th>الشقة</th>
+                            <!-- الأيام ستُولد برمجياً -->
+                            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>101 (F3)</td>
+                            <td></td><td class="booked">رشيد</td><td></td><td></td><td></td><td></td><td></td>
+                        </tr>
+                        <tr>
+                            <td>102 (F4)</td>
+                            <td></td><td></td><td class="booked-blue">زهيرة</td><td></td><td></td><td></td><td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

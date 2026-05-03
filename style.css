@@ -1,0 +1,70 @@
+:root {
+    --bg-dark: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --text-color: #e0e0e0;
+    --accent: #ffd700;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    margin: 0;
+}
+
+.sidebar {
+    width: 200px;
+    background: #111;
+    height: 100vh;
+    padding: 20px;
+    border-left: 1px solid #333;
+}
+
+.stats-bar {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+}
+
+.stat-card {
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 8px;
+    flex: 1;
+    text-align: center;
+    border-bottom: 4px solid #555;
+}
+
+.green { border-color: #2ecc71; }
+.red { border-color: #e74c3c; }
+.orange { border-color: #f39c12; }
+
+.table-wrapper {
+    overflow-x: auto;
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+}
+
+th, td {
+    border: 1px solid #444;
+    padding: 10px;
+    text-align: center;
+}
+
+.booked { background: #27ae60; color: white; border-radius: 4px; }
+.booked-blue { background: #2980b9; color: white; }
+
+.btn-add {
+    background: var(--accent);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
