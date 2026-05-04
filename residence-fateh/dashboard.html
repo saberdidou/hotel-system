@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - إقامة فاتح</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <div class="logo-area">
+                <img src="logo.png" alt="شعار إقامة فاتح" class="mini-logo">
+                <div>
+                    <h2>إقامة <span class="gold">فاتح</span></h2>
+                    <p>مجمع نسيب للعطل الداخلية - بسكرة</p>
+                </div>
+            </div>
+            <div class="header-info">
+                <span id="todayDate"></span>
+                <button id="logoutBtn" class="logout-btn">خروج</button>
+            </div>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-card"><span>✅ مؤكد</span><strong id="statConfirmed">0</strong></div>
+            <div class="stat-card"><span>🟢 قادم / Chek-in</span><strong id="statCheckin">0</strong></div>
+            <div class="stat-card"><span>🔵 حجز بعيد</span><strong id="statFuture">0</strong></div>
+            <div class="stat-card"><span>🔴 مغادر</span><strong id="statCheckout">0</strong></div>
+            <div class="stat-card"><span>⚪ خارج الخدمة</span><strong id="statMaintenance">0</strong></div>
+        </div>
+
+        <div class="nav-bar">
+            <button id="prevWeek">◀ الأسبوع السابق</button>
+            <div class="week-badge" id="weekRange"></div>
+            <button id="nextWeek">الأسبوع التالي ▶</button>
+            <button id="resetAll" class="reset-btn">🔄 إعادة تعيين</button>
+        </div>
+
+        <div class="table-wrapper">
+            <table id="bookingTable">
+                <thead id="tableHead"></thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- نافذة حجز جديد -->
+    <div id="newBookingModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h3>➕ حجز جديد</h3>
+            <p>الغرفة: <strong id="newRoomNumber"></strong></p>
+            <p>التاريخ: <strong id="newBookingDate"></strong></p>
+            <input type="text" id="customerFullName" placeholder="الاسم واللقب">
+            <input type="text" id="customerPhone" placeholder="رقم الهاتف">
+            <input type="text" id="customerAddress" placeholder="مكان الإقامة">
+            <div class="modal-buttons">
+                <button id="confirmNewBooking">تأكيد الحجز</button>
+                <button id="closeNewModal">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة تعديل الحجز -->
+    <div id="editModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h3>✏️ تعديل الحجز</h3>
+            <p><strong>العميل:</strong> <span id="editCustomerName"></span></p>
+            <p><strong>الغرفة:</strong> <span id="editRoomNumber"></span></p>
+            <p><strong>التاريخ:</strong> <span id="editDate"></span></p>
+            <hr>
+            <label>📞 رقم الهاتف:</label>
+            <input type="text" id="editPhone">
+            <label>📍 مكان الإقامة:</label>
+            <input type="text" id="editAddress">
+            <hr>
+            <label>➕ تمديد الإقامة (أيام):</label>
+            <input type="number" id="extendDays" value="1" min="1">
+            <button id="doExtend">تمديد الإقامة</button>
+            <hr>
+            <label>🔄 تغيير الغرفة إلى:</label>
+            <select id="changeRoomSelect"></select>
+            <button id="doChangeRoom">تغيير الغرفة</button>
+            <hr>
+            <label>⚙️ تغيير الحالة:</label>
+            <select id="statusSelect">
+                <option value="available">⬜ شاغرة</option>
+                <option value="checkin">🟢 قادم / Chek-in</option>
+                <option value="future">🔵 حجز بعيد</option>
+                <option value="checkout">🔴 مغادر</option>
+                <option value="maintenance">⚪ خارج الخدمة</option>
+            </select>
+            <button id="updateStatusBtn">تحديث الحالة</button>
+            <hr>
+            <button id="cancelBookingBtn">❌ إلغاء الحجز</button>
+            <button id="closeEditModal">إغلاق</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

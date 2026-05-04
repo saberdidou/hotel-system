@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دليل إقامة فاتح — الدليل الكامل</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#1a6b2a;--green-l:#e8f5ea;
+  --gold:#C8961A;--gold-l:#fdf5e0;
+  --blue:#1a4a8a;--blue-l:#e8f0fb;
+  --red:#b01c1c;--red-l:#fdeaea;
+  --dark:#1A1A1A;--bg:#f5f4f0;--card:#fff;
+  --border:#e0ddd5;--muted:#666;
+}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--dark);font-size:14px;line-height:1.7}
+
+/* ── PRINT ── */
+@media print{
+  .no-print{display:none!important}
+  .step-block{page-break-inside:avoid}
+  body{background:white;font-size:12px}
+  .main-wrap{max-width:100%;padding:0}
+  .cover{height:auto;padding:40px 20px}
+}
+
+/* ── COVER ── */
+.cover{
+  background:linear-gradient(135deg,#141a14 0%,#1e3a1e 50%,#2a4a1a 100%);
+  color:#fff;text-align:center;padding:60px 40px;position:relative;overflow:hidden;
+}
+.cover::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C8961A' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.cover-logo-box{
+  width:100px;height:100px;background:linear-gradient(135deg,#C8961A,#e8b830);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  margin:0 auto 24px;font-size:14px;font-weight:900;color:#141a14;
+  box-shadow:0 0 40px rgba(200,150,26,.5);line-height:1.3;
+}
+.cover h1{font-size:32px;font-weight:900;letter-spacing:1px;margin-bottom:8px;color:#fff}
+.cover h2{font-size:18px;color:rgba(255,255,255,.7);font-weight:400;margin-bottom:20px}
+.cover-badges{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:24px}
+.cover-badge{
+  background:rgba(255,255,255,.1);border:1px solid rgba(200,150,26,.4);
+  color:var(--gold);padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;
+}
+
+/* ── MAIN ── */
+.main-wrap{max-width:900px;margin:0 auto;padding:0 20px 60px}
+
+/* ── TOC ── */
+.toc{
+  background:var(--card);border:0.5px solid var(--border);
+  border-radius:16px;padding:28px 32px;margin:32px 0;
+  box-shadow:0 2px 16px rgba(0,0,0,.06);
+}
+.toc-title{font-size:18px;font-weight:700;color:var(--dark);margin-bottom:16px;
+  padding-bottom:12px;border-bottom:2px solid var(--gold);}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.toc-item{
+  display:flex;align-items:center;gap:10px;padding:8px 12px;
+  border-radius:8px;background:var(--bg);cursor:pointer;
+  transition:background .15s;text-decoration:none;color:var(--dark);
+}
+.toc-item:hover{background:var(--green-l)}
+.toc-num{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--green);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;flex-shrink:0;
+}
+.toc-text{font-size:13px;font-weight:600}
+
+/* ── STEP BLOCKS ── */
+.step-block{
+  background:var(--card);border:0.5px solid var(--border);
+  border-radius:16px;margin:28px 0;overflow:hidden;
+  box-shadow:0 2px 16px rgba(0,0,0,.06);
+}
+.step-header{
+  padding:20px 28px;display:flex;align-items:center;gap:16px;
+  border-bottom:0.5px solid var(--border);
+}
+.step-num{
+  width:48px;height:48px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;font-weight:900;color:#fff;flex-shrink:0;
+}
+.step-num.green  {background:var(--green)}
+.step-num.gold   {background:var(--gold)}
+.step-num.blue   {background:var(--blue)}
+.step-num.dark   {background:var(--dark)}
+.step-num.red    {background:var(--red)}
+.step-title{font-size:20px;font-weight:700;color:var(--dark)}
+.step-subtitle{font-size:12px;color:var(--muted);margin-top:2px}
+.step-body{padding:24px 28px}
+
+/* ── SUB STEPS ── */
+.sub-step{margin-bottom:24px}
+.sub-step:last-child{margin-bottom:0}
+.sub-title{
+  font-size:14px;font-weight:700;color:var(--dark);
+  margin-bottom:10px;padding-bottom:6px;
+  border-bottom:2px solid var(--gold-l);
+  display:flex;align-items:center;gap:8px;
+}
+.sub-icon{font-size:16px}
+
+/* ── NUMBERED STEPS ── */
+.steps-list{list-style:none;padding:0}
+.steps-list li{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:10px 0;border-bottom:0.5px solid var(--border);
+  font-size:13.5px;
+}
+.steps-list li:last-child{border-bottom:none}
+.step-n{
+  width:26px;height:26px;border-radius:50%;
+  background:var(--green);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px;
+}
+.step-content{flex:1;line-height:1.6}
+.step-content b{color:var(--green)}
+.step-content code{
+  background:#f0f0e8;padding:1px 6px;border-radius:4px;
+  font-family:monospace;font-size:12px;color:var(--blue);
+}
+
+/* ── CODE BLOCKS ── */
+.code-wrap{margin:14px 0;border-radius:10px;overflow:hidden;border:0.5px solid #2d3748}
+.code-header{
+  background:#1e2533;padding:8px 16px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.code-lang{color:#a0aec0;font-size:11px;font-family:monospace;letter-spacing:.5px}
+.code-label{
+  background:var(--gold);color:#1a1a1a;
+  padding:2px 10px;border-radius:10px;font-size:10px;font-weight:700;
+}
+.code-block{
+  background:#0d1117;color:#e6edf3;
+  padding:16px 20px;font-family:'Courier New',monospace;
+  font-size:12.5px;line-height:1.7;overflow-x:auto;direction:ltr;text-align:left;
+}
+.c-comment{color:#8b949e}
+.c-key    {color:#ff7b72}
+.c-str    {color:#a5d6ff}
+.c-num    {color:#79c0ff}
+.c-fn     {color:#d2a8ff}
+.c-prop   {color:#ffa657}
+.c-green  {color:#3fb950}
+
+/* ── ALERT BOXES ── */
+.alert{
+  padding:14px 18px;border-radius:10px;margin:14px 0;
+  display:flex;gap:12px;align-items:flex-start;font-size:13px;
+}
+.alert-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.alert.warning{background:#fff8e0;border:1px solid #f0d060;color:#6b4c00}
+.alert.info   {background:var(--blue-l);border:1px solid #90b8f0;color:#0a2a6a}
+.alert.success{background:var(--green-l);border:1px solid #80c890;color:#0a3a15}
+.alert.danger {background:var(--red-l);border:1px solid #e09090;color:#5a0a0a}
+
+/* ── FILE TREE ── */
+.file-tree{
+  background:#0d1117;color:#e6edf3;border-radius:10px;
+  padding:16px 20px;font-family:monospace;font-size:13px;
+  line-height:1.8;direction:ltr;text-align:left;
+  border:0.5px solid #30363d;
+}
+.ft-folder{color:#ffa657}
+.ft-file  {color:#a5d6ff}
+.ft-comment{color:#8b949e}
+
+/* ── BADGES ── */
+.badge{padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700}
+.badge-green{background:var(--green-l);color:var(--green)}
+.badge-gold {background:var(--gold-l);color:#7a5010}
+.badge-blue {background:var(--blue-l);color:var(--blue)}
+.badge-free {background:#e8f5ea;color:#1a6b2a;font-size:12px;padding:4px 12px}
+
+/* ── TABLE ── */
+.tbl-wrap{overflow-x:auto;margin:14px 0}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{background:var(--dark);color:#fff;padding:10px 14px;text-align:right;font-weight:600}
+.tbl td{padding:9px 14px;border-bottom:0.5px solid var(--border)}
+.tbl tr:hover td{background:var(--bg)}
+.tbl tr:last-child td{border-bottom:none}
+
+/* ── SECTION DIVIDER ── */
+.section-divider{
+  text-align:center;margin:32px 0 20px;
+  display:flex;align-items:center;gap:12px;color:var(--muted);font-size:12px;
+}
+.section-divider::before,.section-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── PRINT BUTTON ── */
+.print-bar{
+  position:sticky;top:0;z-index:100;background:var(--dark);
+  padding:10px 20px;display:flex;justify-content:space-between;align-items:center;
+}
+.print-btn{
+  background:var(--gold);color:#141a14;border:none;
+  padding:8px 20px;border-radius:8px;font-size:13px;font-weight:700;
+  cursor:pointer;font-family:'Cairo',sans-serif;
+}
+.print-btn:hover{opacity:.9}
+.print-title{color:rgba(255,255,255,.7);font-size:12px}
+
+/* ── COST TABLE ── */
+.cost-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+.cost-card{background:var(--card);border:0.5px solid var(--border);border-radius:12px;padding:16px;text-align:center}
+.cost-name{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:6px}
+.cost-price{font-size:22px;font-weight:900;color:var(--green)}
+.cost-note{font-size:10px;color:var(--muted);margin-top:4px}
+
+/* ── PROGRESS TRACKER ── */
+.progress-track{
+  display:flex;align-items:center;justify-content:center;
+  gap:0;margin:24px 0;overflow-x:auto;padding:8px 0;
+}
+.prog-step{display:flex;align-items:center}
+.prog-circle{
+  width:40px;height:40px;border-radius:50%;border:2px solid var(--green);
+  background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;flex-shrink:0;
+}
+.prog-label{font-size:9px;text-align:center;color:var(--muted);width:60px;margin-top:4px}
+.prog-wrap{display:flex;flex-direction:column;align-items:center}
+.prog-line{width:40px;height:2px;background:var(--green);flex-shrink:0}
+
+/* ── HIGHLIGHT ── */
+.hl-gold{background:var(--gold-l);padding:1px 5px;border-radius:3px;font-weight:600}
+.hl-green{background:var(--green-l);padding:1px 5px;border-radius:3px;font-weight:600}
+
+</style>
+</head>
+<body>
+
+<!-- PRINT BAR -->
+<div class="print-bar no-print">
+  <span class="print-title">📘 دليل إقامة فاتح الكامل</span>
+  <button class="print-btn" onclick="window.print()">🖨️ طباعة / حفظ PDF</button>
+</div>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-logo-box">إقامة<br>فاتح</div>
+  <h1>دليل النشر الكامل</h1>
+  <h2>من الصفر إلى الإنترنت — خطوة بخطوة بالعربية</h2>
+  <p style="color:rgba(255,255,255,.5);font-size:13px">مجمع نسيب للعطل الداخلية · RÉSIDENCE FATEH TOURISME</p>
+  <div class="cover-badges">
+    <span class="cover-badge">🆓 مجاني 100%</span>
+    <span class="cover-badge">🌐 Online 24/7</span>
+    <span class="cover-badge">🔥 Firebase</span>
+    <span class="cover-badge">🚀 Vercel</span>
+    <span class="cover-badge">📱 يعمل على الهاتف</span>
+  </div>
+</div>
+
+<div class="main-wrap">
+
+<!-- PROGRESS -->
+<div class="progress-track">
+  <div class="prog-wrap"><div class="prog-circle">1</div><div class="prog-label">VSCode</div></div>
+  <div class="prog-line"></div>
+  <div class="prog-wrap"><div class="prog-circle">2</div><div class="prog-label">Firebase</div></div>
+  <div class="prog-line"></div>
+  <div class="prog-wrap"><div class="prog-circle">3</div><div class="prog-label">تعديل الكود</div></div>
+  <div class="prog-line"></div>
+  <div class="prog-wrap"><div class="prog-circle">4</div><div class="prog-label">GitHub</div></div>
+  <div class="prog-line"></div>
+  <div class="prog-wrap"><div class="prog-circle">5</div><div class="prog-label">Vercel</div></div>
+  <div class="prog-line"></div>
+  <div class="prog-wrap"><div class="prog-circle">✓</div><div class="prog-label">موقعك جاهز</div></div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <div class="toc-title">📋 فهرس المحتوى</div>
+  <div class="toc-grid">
+    <a href="#step1" class="toc-item"><div class="toc-num">1</div><div class="toc-text">هيكل المشروع والملفات</div></a>
+    <a href="#step2" class="toc-item"><div class="toc-num">2</div><div class="toc-text">تثبيت VSCode</div></a>
+    <a href="#step3" class="toc-item"><div class="toc-num">3</div><div class="toc-text">إنشاء Firebase</div></a>
+    <a href="#step4" class="toc-item"><div class="toc-num">4</div><div class="toc-text">تعديل الكود — firebaseConfig</div></a>
+    <a href="#step5" class="toc-item"><div class="toc-num">5</div><div class="toc-text">رفع الكود على GitHub</div></a>
+    <a href="#step6" class="toc-item"><div class="toc-num">6</div><div class="toc-text">النشر على Vercel</div></a>
+    <a href="#step7" class="toc-item"><div class="toc-num">7</div><div class="toc-text">الكودات الكاملة</div></a>
+    <a href="#step8" class="toc-item"><div class="toc-num">8</div><div class="toc-text">مشاكل شائعة وحلولها</div></a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     STEP 1 — هيكل المشروع
+═══════════════════════════════════════ -->
+<div class="step-block" id="step1">
+  <div class="step-header">
+    <div class="step-num green">📁</div>
+    <div>
+      <div class="step-title">هيكل المشروع — الملفات المطلوبة</div>
+      <div class="step-subtitle">قبل البدء — تأكد أن لديك هذه الملفات</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <p style="margin-bottom:14px;color:var(--muted)">بعد فك ضغط الـ ZIP، يجب أن يكون المجلد هكذا:</p>
+    <div class="file-tree">
+<span class="ft-folder">📁 residence-fateh/</span>
+<br>├── <span class="ft-file">📄 index.html</span>      <span class="ft-comment">← الموقع الكامل (لا تعدّل إلا منطقة firebaseConfig)</span>
+<br>├── <span class="ft-file">📄 style.css</span>       <span class="ft-comment">← التصميم الكامل (لا تعدّل)</span>
+<br>├── <span class="ft-file">📄 GUIDE.md</span>        <span class="ft-comment">← هذا الدليل بصيغة نصية</span>
+<br>└── <span class="ft-folder">📁 assets/</span>
+<br>    └── <span class="ft-file">🖼️ logo.png</span>    <span class="ft-comment">← لوغو إقامة فاتح</span>
+    </div>
+
+    <div class="alert warning">
+      <span class="alert-icon">⚠️</span>
+      <div>لا تغيّر أسماء الملفات. الحروف الكبيرة والصغيرة مهمة — <code>Logo.PNG</code> ليست نفس <code>logo.png</code></div>
+    </div>
+
+    <div class="sub-title"><span class="sub-icon">🖥️</span>ما تحتاجه على جهازك</div>
+    <ul class="steps-list">
+      <li><div class="step-n">1</div><div class="step-content">متصفح حديث: <b>Chrome</b> أو Firefox أو Edge</div></li>
+      <li><div class="step-n">2</div><div class="step-content">اتصال بالإنترنت</div></li>
+      <li><div class="step-n">3</div><div class="step-content">بريد إلكتروني Gmail (لإنشاء حساب Firebase)</div></li>
+      <li><div class="step-n">4</div><div class="step-content">المجلد <code>residence-fateh</code> المستخرج من الـ ZIP</div></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     STEP 2 — VSCode
+═══════════════════════════════════════ -->
+<div class="step-block" id="step2">
+  <div class="step-header">
+    <div class="step-num blue">2</div>
+    <div>
+      <div class="step-title">تثبيت VSCode</div>
+      <div class="step-subtitle">محرر الكود المجاني من Microsoft</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <ul class="steps-list">
+      <li>
+        <div class="step-n">1</div>
+        <div class="step-content">افتح المتصفح واذهب إلى: <b>https://code.visualstudio.com</b></div>
+      </li>
+      <li>
+        <div class="step-n">2</div>
+        <div class="step-content">اضغط الزر الأزرق الكبير <b>Download for Windows</b> — سيبدأ التحميل تلقائياً</div>
+      </li>
+      <li>
+        <div class="step-n">3</div>
+        <div class="step-content">افتح الملف الذي تحمّل واتبع: <b>Next → Next → Next → Install → Finish</b></div>
+      </li>
+      <li>
+        <div class="step-n">4</div>
+        <div class="step-content">افتح VSCode — ستظهر لك شاشة ترحيب</div>
+      </li>
+      <li>
+        <div class="step-n">5</div>
+        <div class="step-content">اضغط <b>File</b> ← <b>Open Folder</b> من القائمة العلوية</div>
+      </li>
+      <li>
+        <div class="step-n">6</div>
+        <div class="step-content">ابحث عن مجلد <code>residence-fateh</code> على جهازك ← اضغط <b>Select Folder</b></div>
+      </li>
+      <li>
+        <div class="step-n">7</div>
+        <div class="step-content">ستظهر الملفات في القائمة الجانبية اليسرى — اضغط على <code>index.html</code> لفتحه</div>
+      </li>
+    </ul>
+
+    <div class="alert success">
+      <span class="alert-icon">✅</span>
+      <div>إضافة مفيدة في VSCode: ابحث عن <b>Live Server</b> في Extensions (Ctrl+Shift+X) وثبّتها — ستتيح لك رؤية الموقع محلياً</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     STEP 3 — Firebase
+═══════════════════════════════════════ -->
+<div class="step-block" id="step3">
+  <div class="step-header">
+    <div class="step-num gold">3</div>
+    <div>
+      <div class="step-title">إنشاء Firebase — قاعدة البيانات</div>
+      <div class="step-subtitle">Google Firebase — مجاني ويحفظ بياناتك على السحابة</div>
+    </div>
+  </div>
+  <div class="step-body">
+
+    <!-- 3.1 -->
+    <div class="sub-step">
+      <div class="sub-title"><span class="sub-icon">🔑</span>3.1 — إنشاء حساب Firebase</div>
+      <ul class="steps-list">
+        <li><div class="step-n">1</div><div class="step-content">اذهب إلى: <b>https://firebase.google.com</b></div></li>
+        <li><div class="step-n">2</div><div class="step-content">اضغط <b>Get started</b> أو <b>ابدأ الآن</b></div></li>
+        <li><div class="step-n">3</div><div class="step-content">سجّل دخولك بحساب <b>Gmail</b> — إذا لم يكن لديك Gmail أنشئه الآن</div></li>
+        <li><div class="step-n">4</div><div class="step-content">اضغط <b>Create a project</b></div></li>
+        <li><div class="step-n">5</div><div class="step-content">في خانة اسم المشروع اكتب بالضبط: <code>residence-fateh</code></div></li>
+        <li><div class="step-n">6</div><div class="step-content">اضغط <b>Continue</b> ← <b>Continue</b> ← <b>Create project</b></div></li>
+        <li><div class="step-n">7</div><div class="step-content">انتظر 30 ثانية ← اضغط <b>Continue</b></div></li>
+      </ul>
+    </div>
+
+    <!-- 3.2 -->
+    <div class="sub-step">
+      <div class="sub-title"><span class="sub-icon">🗄️</span>3.2 — إنشاء قاعدة البيانات Firestore</div>
+      <ul class="steps-list">
+        <li><div class="step-n">1</div><div class="step-content">من القائمة الجانبية اليسرى اضغط <b>Build</b></div></li>
+        <li><div class="step-n">2</div><div class="step-content">اضغط <b>Firestore Database</b></div></li>
+        <li><div class="step-n">3</div><div class="step-content">اضغط <b>Create database</b></div></li>
+        <li><div class="step-n">4</div><div class="step-content">اختر <b>Start in test mode</b> ← اضغط <b>Next</b></div></li>
+        <li><div class="step-n">5</div><div class="step-content">في قائمة المنطقة اختر: <b class="hl-gold">europe-west1</b> (الأقرب للجزائر)</div></li>
+        <li><div class="step-n">6</div><div class="step-content">اضغط <b>Enable</b> — انتظر دقيقة حتى تُنشأ القاعدة</div></li>
+      </ul>
+    </div>
+
+    <!-- 3.3 -->
+    <div class="sub-step">
+      <div class="sub-title"><span class="sub-icon">🔐</span>3.3 — قواعد الأمان (Rules)</div>
+      <p style="margin-bottom:10px;font-size:13px;color:var(--muted)">هذه القواعد تضمن أن فقط المستخدمين الذين سجّلوا دخولهم يمكنهم الوصول للبيانات</p>
+      <ul class="steps-list">
+        <li><div class="step-n">1</div><div class="step-content">اضغط على تبويب <b>Rules</b> في الأعلى</div></li>
+        <li><div class="step-n">2</div><div class="step-content"><b>احذف كل النص الموجود</b> في المربع</div></li>
+        <li><div class="step-n">3</div><div class="step-content">الصق هذا الكود كاملاً:</div></li>
+      </ul>
+      <div class="code-wrap">
+        <div class="code-header">
+          <span class="code-lang">FIRESTORE RULES</span>
+          <span class="code-label">انسخ والصق كاملاً</span>
+        </div>
+        <div class="code-block"><span class="c-key">rules_version</span> <span class="c-str">= '2'</span>;
+<span class="c-fn">service</span> cloud.firestore {
+  <span class="c-fn">match</span> /databases/{database}/documents {
+    <span class="c-fn">match</span> /bookings/{booking} {
+      <span class="c-comment">// فقط المستخدمون المسجلون يمكنهم القراءة والكتابة</span>
+      <span class="c-fn">allow</span> read, write: <span class="c-key">if</span> request.auth != <span class="c-key">null</span>;
+    }
+  }
+}</div>
+      </div>
+      <ul class="steps-list">
+        <li><div class="step-n">4</div><div class="step-content">اضغط <b>Publish</b> — ستظهر رسالة نجاح باللون الأخضر</div></li>
+      </ul>
+    </div>
+
+    <!-- 3.4 -->
+    <div class="sub-step">
+      <div class="sub-title"><span class="sub-icon">👤</span>3.4 — تفعيل نظام تسجيل الدخول</div>
+      <ul class="steps-list">
+        <li><div class="step-n">1</div><div class="step-content">القائمة الجانبية: <b>Build</b> ← <b>Authentication</b></div></li>
+        <li><div class="step-n">2</div><div class="step-content">اضغط <b>Get started</b></div></li>
+        <li><div class="step-n">3</div><div class="step-content">اضغط على <b>Email/Password</b></div></li>
+        <li><div class="step-n">4</div><div class="step-content">فعّل المفتاح الأول (<b>Enable</b>) ← اضغط <b>Save</b></div></li>
+      </ul>
+    </div>
+
+    <!-- 3.5 -->
+    <div class="sub-step">
+      <div class="sub-title"><span class="sub-icon">➕</span>3.5 — إضافة المستخدمين (مدير النظام)</div>
+      <ul class="steps-list">
+        <li><div class="step-n">1</div><div class="step-content">اضغط على تبويب <b>Users</b></div></li>
+        <li><div class="step-n">2</div><div class="step-content">اضغط <b>Add user</b></div></li>
+        <li><div class="step-n">3</div><div class="step-content">
+          <b>Email:</b> <code>admin@fateh-hotel.com</code><br>
+          <b>Password:</b> اختر كلمة مرور قوية — مثلاً <code>Fateh@2024!</code><br>
+          <span style="color:var(--red);font-size:12px">⚠️ احفظ كلمة المرور في مكان آمن — لن تتمكن من استرجاعها</span>
+        </div></li>
+        <li><div class="step-n">4</div><div class="step-content">اضغط <b>Add user</b></div></li>
+      </ul>
+      <div class="alert info">
+        <span class="alert-icon">ℹ️</span>
+        <div>يمكنك إضافة مستخدم ثانٍ مثل <code>fateh@fateh-hotel.com</code> لموظف آخر — نفس الخطوات</div>
+      </div>
+    </div>
+
+    <!-- 3.6 -->
+    <div class="sub-step">
+      <div class="sub-title"><span class="sub-icon">📋</span>3.6 — نسخ إعدادات Firebase (مهم جداً)</div>
+      <ul class="steps-list">
+        <li><div class="step-n">1</div><div class="step-content">اضغط على <b>أيقونة الترس ⚙️</b> بجانب "Project Overview" في الأعلى</div></li>
+        <li><div class="step-n">2</div><div class="step-content">اضغط <b>Project settings</b></div></li>
+        <li><div class="step-n">3</div><div class="step-content">مرّر الصفحة للأسفل حتى ترى <b>Your apps</b></div></li>
+        <li><div class="step-n">4</div><div class="step-content">اضغط على الأيقونة <b>&lt;/&gt;</b> (تعني Web app — موقع ويب)</div></li>
+        <li><div class="step-n">5</div><div class="step-content">في خانة App nickname اكتب: <code>fateh-web</code></div></li>
+        <li><div class="step-n">6</div><div class="step-content"><b>لا تضع</b> علامة على Firebase Hosting</div></li>
+        <li><div class="step-n">7</div><div class="step-content">اضغط <b>Register app</b></div></li>
+        <li><div class="step-n">8</div><div class="step-content">ستظهر شاشة فيها كود — <b>انسخ فقط الجزء المحاط بالإطار الأصفر في المثال التالي</b></div></li>
+        <li><div class="step-n">9</div><div class="step-content">اضغط <b>Continue to console</b></div></li>
+      </ul>
+
+      <p style="margin:12px 0 8px;font-weight:600;font-size:13px">مثال على الكود الذي ستنسخه من Firebase (القيم ستكون مختلفة عندك):</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <span class="code-lang">JavaScript — Firebase Config</span>
+          <span class="code-label">مثال فقط — القيم ستكون مختلفة</span>
+        </div>
+        <div class="code-block"><span class="c-comment">// انسخ هذا الكود كاملاً من Firebase Console</span>
+<span class="c-key">const</span> firebaseConfig = {
+  apiKey:            <span class="c-str">"AIzaSyD1234567890abcdefghijklmnop"</span>,
+  authDomain:        <span class="c-str">"residence-fateh-12345.firebaseapp.com"</span>,
+  projectId:         <span class="c-str">"residence-fateh-12345"</span>,
+  storageBucket:     <span class="c-str">"residence-fateh-12345.appspot.com"</span>,
+  messagingSenderId: <span class="c-str">"123456789012"</span>,
+  appId:             <span class="c-str">"1:123456789012:web:abcdef1234567890"</span>
+};</div>
+      </div>
+      <div class="alert warning">
+        <span class="alert-icon">⚠️</span>
+        <div><b>مهم:</b> احفظ هذا الكود في ملف نصي على جهازك — ستحتاجه في الخطوة التالية</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     STEP 4 — تعديل الكود
+═══════════════════════════════════════ -->
+<div class="step-block" id="step4">
+  <div class="step-header">
+    <div class="step-num dark">4</div>
+    <div>
+      <div class="step-title">تعديل الكود في VSCode</div>
+      <div class="step-subtitle">لصق إعدادات Firebase في ملف index.html</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <ul class="steps-list">
+      <li>
+        <div class="step-n">1</div>
+        <div class="step-content">افتح VSCode — ثم افتح ملف <code>index.html</code></div>
+      </li>
+      <li>
+        <div class="step-n">2</div>
+        <div class="step-content">اضغط <b>Ctrl + F</b> وابحث عن النص: <code>PASTE_YOUR_API_KEY_HERE</code></div>
+      </li>
+      <li>
+        <div class="step-n">3</div>
+        <div class="step-content">ستجد هذا الجزء في الكود:</div>
+      </li>
+    </ul>
+
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="code-lang">index.html — قبل التعديل</span>
+        <span class="code-label" style="background:#b01c1c;color:#fff">قبل</span>
+      </div>
+      <div class="code-block"><span class="c-comment">// ▼▼▼ ضع إعداداتك هنا ▼▼▼</span>
+<span class="c-key">const</span> firebaseConfig = {
+  apiKey:            <span class="c-str">"PASTE_YOUR_API_KEY_HERE"</span>,
+  authDomain:        <span class="c-str">"PASTE_YOUR_PROJECT.firebaseapp.com"</span>,
+  projectId:         <span class="c-str">"PASTE_YOUR_PROJECT_ID"</span>,
+  storageBucket:     <span class="c-str">"PASTE_YOUR_PROJECT.appspot.com"</span>,
+  messagingSenderId: <span class="c-str">"PASTE_YOUR_SENDER_ID"</span>,
+  appId:             <span class="c-str">"PASTE_YOUR_APP_ID"</span>
+};</div>
+    </div>
+
+    <ul class="steps-list">
+      <li>
+        <div class="step-n">4</div>
+        <div class="step-content"><b>احذف</b> الأسطر الستة (من apiKey إلى appId) <b>واستبدلها</b> بالإعدادات التي نسختها من Firebase. مثال بعد التعديل:</div>
+      </li>
+    </ul>
+
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="code-lang">index.html — بعد التعديل</span>
+        <span class="code-label">بعد</span>
+      </div>
+      <div class="code-block"><span class="c-comment">// ▼▼▼ ضع إعداداتك هنا ▼▼▼</span>
+<span class="c-key">const</span> firebaseConfig = {
+  apiKey:            <span class="c-str">"AIzaSyD1234567890abcdefghijklmnop"</span>,
+  authDomain:        <span class="c-str">"residence-fateh-12345.firebaseapp.com"</span>,
+  projectId:         <span class="c-str">"residence-fateh-12345"</span>,
+  storageBucket:     <span class="c-str">"residence-fateh-12345.appspot.com"</span>,
+  messagingSenderId: <span class="c-str">"123456789012"</span>,
+  appId:             <span class="c-str">"1:123456789012:web:abcdef1234567890"</span>
+};
+<span class="c-comment">// ▲▲▲ نهاية منطقة التعديل ▲▲▲</span></div>
+    </div>
+
+    <ul class="steps-list">
+      <li><div class="step-n">5</div><div class="step-content">احفظ الملف: <b>Ctrl + S</b></div></li>
+    </ul>
+
+    <div class="sub-title" style="margin-top:20px"><span class="sub-icon">👥</span>تعديل بيانات المستخدمين</div>
+    <p style="margin-bottom:10px;font-size:13px;color:var(--muted)">ابحث في <code>index.html</code> عن هذا السطر وتأكد أن البريد الإلكتروني يطابق ما أنشأته في Firebase:</p>
+    <div class="code-wrap">
+      <div class="code-header"><span class="code-lang">JavaScript — خريطة المستخدمين</span></div>
+      <div class="code-block"><span class="c-comment">// اسم المستخدم (ما يكتبه المدير) → البريد الإلكتروني في Firebase</span>
+<span class="c-key">const</span> USERS = {
+  <span class="c-str">'admin'</span>: <span class="c-str">'admin@fateh-hotel.com'</span>,   <span class="c-comment">// عند كتابة admin في خانة الاسم</span>
+  <span class="c-str">'fateh'</span>: <span class="c-str">'fateh@fateh-hotel.com'</span>,   <span class="c-comment">// عند كتابة fateh في خانة الاسم</span>
+  <span class="c-str">'مدير'</span>:  <span class="c-str">'admin@fateh-hotel.com'</span>    <span class="c-comment">// يمكن الدخول بالعربية أيضاً</span>
+};</div>
+    </div>
+    <div class="alert info">
+      <span class="alert-icon">ℹ️</span>
+      <div>يمكنك تغيير أسماء المستخدمين كما تشاء — فقط تأكد أن البريد الإلكتروني يطابق ما في Firebase Auth</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     STEP 5 — GitHub
+═══════════════════════════════════════ -->
+<div class="step-block" id="step5">
+  <div class="step-header">
+    <div class="step-num dark">5</div>
+    <div>
+      <div class="step-title">رفع الكود على GitHub</div>
+      <div class="step-subtitle">تخزين ملفاتك على الإنترنت — مجاناً</div>
+    </div>
+  </div>
+  <div class="step-body">
+
+    <div class="sub-step">
+      <div class="sub-title"><span class="sub-icon">📝</span>5.1 — إنشاء حساب GitHub</div>
+      <ul class="steps-list">
+        <li><div class="step-n">1</div><div class="step-content">اذهب إلى: <b>https://github.com</b></div></li>
+        <li><div class="step-n">2</div><div class="step-content">اضغط <b>Sign up</b> في الزاوية اليمنى العليا</div></li>
+        <li><div class="step-n">3</div><div class="step-content">أدخل بريدك الإلكتروني ← اختر كلمة مرور ← اختر اسم مستخدم</div></li>
+        <li><div class="step-n">4</div><div class="step-content">حل الاختبار البسيط (puzzle) ← اضغط <b>Create account</b></div></li>
+        <li><div class="step-n">5</div><div class="step-content">افتح بريدك الإلكتروني وأدخل كود التحقق</div></li>
+        <li><div class="step-n">6</div><div class="step-content">اختر الخطة المجانية (<b>Free</b>)</div></li>
+      </ul>
+    </div>
+
+    <div class="sub-step">
+      <div class="sub-title"><span class="sub-icon">📦</span>5.2 — إنشاء Repository (مستودع)</div>
+      <ul class="steps-list">
+        <li><div class="step-n">1</div><div class="step-content">بعد تسجيل الدخول اضغط الزر الأخضر <b>New</b> أو اضغط <b>+</b> في الشريط العلوي ← <b>New repository</b></div></li>
+        <li><div class="step-n">2</div><div class="step-content">في <b>Repository name</b> اكتب: <code>residence-fateh</code></div></li>
+        <li><div class="step-n">3</div><div class="step-content">اختر <b>Public</b></div></li>
+        <li><div class="step-n">4</div><div class="step-content"><b>لا تضع</b> علامة على أي شيء آخر</div></li>
+        <li><div class="step-n">5</div><div class="step-content">اضغط <b>Create repository</b></div></li>
+      </ul>
+    </div>
+
+    <div class="sub-step">
+      <div class="sub-title"><span class="sub-icon">⬆️</span>5.3 — رفع الملفات</div>
+      <ul class="steps-list">
+        <li><div class="step-n">1</div><div class="step-content">في الصفحة التي ظهرت ابحث عن هذا الرابط وانقر عليه: <b>"uploading an existing file"</b></div></li>
+        <li><div class="step-n">2</div><div class="step-content">افتح مجلد <code>residence-fateh</code> على جهازك في نافذة Explorer</div></li>
+        <li><div class="step-n">3</div><div class="step-content">اضغط <b>Ctrl+A</b> لتحديد كل الملفات والمجلدات</div></li>
+        <li><div class="step-n">4</div><div class="step-content"><b>اسحبها وأفلتها</b> في منطقة الرفع على صفحة GitHub</div></li>
+        <li><div class="step-n">5</div><div class="step-content">انتظر حتى يكتمل الرفع — ستظهر قائمة بجميع الملفات</div></li>
+        <li><div class="step-n">6</div><div class="step-content">في الأسفل في خانة <b>Commit changes</b> اكتب: <code>first upload</code></div></li>
+        <li><div class="step-n">7</div><div class="step-content">اضغط <b>Commit changes</b></div></li>
+      </ul>
+      <div class="alert success">
+        <span class="alert-icon">✅</span>
+        <div>إذا نجح الرفع ستظهر ملفاتك على صفحة GitHub بشكل قائمة — مبروك!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     STEP 6 — Vercel
+═══════════════════════════════════════ -->
+<div class="step-block" id="step6">
+  <div class="step-header">
+    <div class="step-num green">6</div>
+    <div>
+      <div class="step-title">النشر على Vercel</div>
+      <div class="step-subtitle">موقعك online 24/7 مجاناً من أي مكان في العالم</div>
+    </div>
+  </div>
+  <div class="step-body">
+
+    <div class="sub-step">
+      <div class="sub-title"><span class="sub-icon">🔗</span>6.1 — إنشاء حساب Vercel</div>
+      <ul class="steps-list">
+        <li><div class="step-n">1</div><div class="step-content">اذهب إلى: <b>https://vercel.com</b></div></li>
+        <li><div class="step-n">2</div><div class="step-content">اضغط <b>Sign Up</b></div></li>
+        <li><div class="step-n">3</div><div class="step-content">اضغط <b>Continue with GitHub</b> — هذا أسهل طريقة</div></li>
+        <li><div class="step-n">4</div><div class="step-content">اضغط <b>Authorize Vercel</b></div></li>
+        <li><div class="step-n">5</div><div class="step-content">اختر الخطة المجانية (<b>Hobby</b> أو <b>Free</b>)</div></li>
+      </ul>
+    </div>
+
+    <div class="sub-step">
+      <div class="sub-title"><span class="sub-icon">🚀</span>6.2 — نشر المشروع</div>
+      <ul class="steps-list">
+        <li><div class="step-n">1</div><div class="step-content">بعد الدخول اضغط <b>Add New...</b> ← <b>Project</b></div></li>
+        <li><div class="step-n">2</div><div class="step-content">ستظهر قائمة بمشاريعك على GitHub — ابحث عن <code>residence-fateh</code></div></li>
+        <li><div class="step-n">3</div><div class="step-content">اضغط <b>Import</b> بجانبه</div></li>
+        <li><div class="step-n">4</div><div class="step-content">في إعدادات المشروع:<br>
+          - Framework Preset: اختر <b>Other</b><br>
+          - كل الإعدادات الأخرى اتركها كما هي</div></li>
+        <li><div class="step-n">5</div><div class="step-content">اضغط الزر الأزرق الكبير <b>Deploy</b></div></li>
+        <li><div class="step-n">6</div><div class="step-content">انتظر 1-2 دقيقة — ستظهر صفحة <b>Congratulations!</b> 🎉</div></li>
+      </ul>
+    </div>
+
+    <div class="sub-step">
+      <div class="sub-title"><span class="sub-icon">🌐</span>6.3 — رابطك الخاص</div>
+      <p style="margin-bottom:12px;font-size:13px">بعد النشر ستحصل على رابط مثل هذا:</p>
+      <div class="code-wrap">
+        <div class="code-header"><span class="code-lang">رابط موقعك</span></div>
+        <div class="code-block" style="font-size:16px;text-align:center;padding:20px;color:#3fb950">
+https://residence-fateh.vercel.app
+<br><br>
+<span style="font-size:11px;color:#8b949e">أو قد يكون مثل: https://residence-fateh-xyz123.vercel.app</span>
+        </div>
+      </div>
+      <div class="alert success">
+        <span class="alert-icon">🎉</span>
+        <div><b>مبروك!</b> موقعك الآن online على الإنترنت. يمكنك فتحه من أي هاتف أو كمبيوتر في أي مكان في العالم!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     STEP 7 — الكودات الكاملة
+═══════════════════════════════════════ -->
+<div class="step-block" id="step7">
+  <div class="step-header">
+    <div class="step-num blue">7</div>
+    <div>
+      <div class="step-title">الكودات الكاملة — للمرجع</div>
+      <div class="step-subtitle">جميع الكودات جاهزة للنسخ واللصق</div>
+    </div>
+  </div>
+  <div class="step-body">
+
+    <div class="sub-step">
+      <div class="sub-title"><span class="sub-icon">📄</span>بنية ملف index.html الكاملة</div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <span class="code-lang">index.html — المناطق الرئيسية</span>
+        </div>
+        <div class="code-block"><span class="c-comment">&lt;!-- ═══════════════════════════════════════
+     LOGIN PAGE — واجهة تسجيل الدخول
+═══════════════════════════════════════ --&gt;</span>
+&lt;<span class="c-key">div</span> <span class="c-prop">id</span>=<span class="c-str">"login-page"</span>&gt;
+  &lt;<span class="c-key">div</span> <span class="c-prop">class</span>=<span class="c-str">"login-card"</span>&gt;
+    &lt;<span class="c-key">img</span> <span class="c-prop">src</span>=<span class="c-str">"assets/logo.png"</span> <span class="c-prop">alt</span>=<span class="c-str">"إقامة فاتح"</span>&gt;
+    <span class="c-comment">&lt;!-- ... خانات الاسم وكلمة المرور وزر الدخول ... --&gt;</span>
+  &lt;/<span class="c-key">div</span>&gt;
+&lt;/<span class="c-key">div</span>&gt;
+
+<span class="c-comment">&lt;!-- ═══════════════════════════════════════
+     MAIN APP — التطبيق الرئيسي
+═══════════════════════════════════════ --&gt;</span>
+&lt;<span class="c-key">div</span> <span class="c-prop">id</span>=<span class="c-str">"main-app"</span>&gt;
+  <span class="c-comment">&lt;!-- الشريط العلوي --&gt;</span>
+  &lt;<span class="c-key">div</span> <span class="c-prop">class</span>=<span class="c-str">"topbar"</span>&gt;...&lt;/<span class="c-key">div</span>&gt;
+  <span class="c-comment">&lt;!-- التبويبات --&gt;</span>
+  &lt;<span class="c-key">div</span> <span class="c-prop">class</span>=<span class="c-str">"navtabs"</span>&gt;...&lt;/<span class="c-key">div</span>&gt;
+  <span class="c-comment">&lt;!-- المحتوى --&gt;</span>
+  &lt;<span class="c-key">div</span> <span class="c-prop">class</span>=<span class="c-str">"content"</span>&gt;...&lt;/<span class="c-key">div</span>&gt;
+&lt;/<span class="c-key">div</span>&gt;
+
+<span class="c-comment">&lt;!-- ═══════════════════════════════════════
+     Firebase SDK — يجب أن يكون في الأسفل
+═══════════════════════════════════════ --&gt;</span>
+&lt;<span class="c-key">script</span> <span class="c-prop">type</span>=<span class="c-str">"module"</span>&gt;
+  <span class="c-fn">import</span> { initializeApp } <span class="c-fn">from</span> <span class="c-str">"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"</span>;
+  <span class="c-fn">import</span> { getFirestore, ... } <span class="c-fn">from</span> <span class="c-str">"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"</span>;
+  <span class="c-fn">import</span> { getAuth, ... } <span class="c-fn">from</span> <span class="c-str">"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"</span>;
+
+  <span class="c-comment">// ► هنا تضع إعدادات Firebase الخاصة بك</span>
+  <span class="c-key">const</span> firebaseConfig = { ... };
+
+  <span class="c-comment">// ► باقي الكود يعمل تلقائياً</span>
+&lt;/<span class="c-key">script</span>&gt;</div>
+      </div>
+    </div>
+
+    <div class="sub-step">
+      <div class="sub-title"><span class="sub-icon">🗄️</span>كيف تُحفظ البيانات في Firebase</div>
+      <div class="code-wrap">
+        <div class="code-header"><span class="code-lang">JavaScript — عمليات قاعدة البيانات</span></div>
+        <div class="code-block"><span class="c-comment">// ── إضافة حجز جديد ──────────────────────</span>
+<span class="c-key">const</span> booking = {
+  name:      <span class="c-str">"محمد بن عمر"</span>,
+  phone:     <span class="c-str">"0555000000"</span>,
+  roomId:    <span class="c-num">102</span>,
+  type:      <span class="c-str">"F4"</span>,
+  checkin:   <span class="c-str">"2026-05-10"</span>,
+  checkout:  <span class="c-str">"2026-05-15"</span>,
+  pax:       <span class="c-num">3</span>,
+  status:    <span class="c-str">"قادم"</span>,
+  createdAt: <span class="c-key">new</span> <span class="c-fn">Date</span>().<span class="c-fn">toISOString</span>()
+};
+<span class="c-key">await</span> <span class="c-fn">addDoc</span>(<span class="c-fn">collection</span>(db, <span class="c-str">'bookings'</span>), booking);
+
+<span class="c-comment">// ── تحديث حالة الحجز (مغادرة) ────────────</span>
+<span class="c-key">await</span> <span class="c-fn">updateDoc</span>(<span class="c-fn">doc</span>(db, <span class="c-str">'bookings'</span>, firestoreId), {
+  status: <span class="c-str">'غادر'</span>
+});
+
+<span class="c-comment">// ── حذف حجز ─────────────────────────────</span>
+<span class="c-key">await</span> <span class="c-fn">deleteDoc</span>(<span class="c-fn">doc</span>(db, <span class="c-str">'bookings'</span>, firestoreId));
+
+<span class="c-comment">// ── تحميل كل الحجوزات في الوقت الفعلي ────</span>
+<span class="c-fn">onSnapshot</span>(<span class="c-fn">query</span>(<span class="c-fn">collection</span>(db, <span class="c-str">'bookings'</span>), <span class="c-fn">orderBy</span>(<span class="c-str">'checkin'</span>, <span class="c-str">'desc'</span>)), snap => {
+  BOOKINGS = snap.docs.<span class="c-fn">map</span>(d => ({ fid: d.<span class="c-fn">id</span>, ...d.<span class="c-fn">data</span>() }));
+  <span class="c-comment">// تحديث الواجهة تلقائياً</span>
+  <span class="c-fn">renderPlanning</span>();
+});</div>
+      </div>
+    </div>
+
+    <div class="sub-step">
+      <div class="sub-title"><span class="sub-icon">🔑</span>كيف يعمل تسجيل الدخول</div>
+      <div class="code-wrap">
+        <div class="code-header"><span class="code-lang">JavaScript — Authentication</span></div>
+        <div class="code-block"><span class="c-comment">// عند الضغط على زر "دخول"</span>
+<span class="c-key">const</span> email = USERS[username]; <span class="c-comment">// admin → admin@fateh-hotel.com</span>
+<span class="c-key">await</span> <span class="c-fn">signInWithEmailAndPassword</span>(auth, email, password);
+
+<span class="c-comment">// Firebase يتحقق تلقائياً ويفعّل الجلسة</span>
+<span class="c-fn">onAuthStateChanged</span>(auth, user => {
+  <span class="c-key">if</span> (user) {
+    <span class="c-comment">// المستخدم سجّل دخوله — أظهر التطبيق</span>
+    document.<span class="c-fn">getElementById</span>(<span class="c-str">'login-page'</span>).style.display = <span class="c-str">'none'</span>;
+    document.<span class="c-fn">getElementById</span>(<span class="c-str">'main-app'</span>).style.display   = <span class="c-str">'flex'</span>;
+  } <span class="c-key">else</span> {
+    <span class="c-comment">// المستخدم خرج — أظهر صفحة الدخول</span>
+    document.<span class="c-fn">getElementById</span>(<span class="c-str">'login-page'</span>).style.display = <span class="c-str">'flex'</span>;
+  }
+});</div>
+      </div>
+    </div>
+
+    <div class="sub-step">
+      <div class="sub-title"><span class="sub-icon">🏠</span>بيانات الشقق — كيف تعدّلها</div>
+      <p style="margin-bottom:10px;font-size:13px;color:var(--muted)">إذا تغيّرت الأسعار أو أضفت شققاً جديدة، عدّل هذا الجزء في <code>index.html</code>:</p>
+      <div class="code-wrap">
+        <div class="code-header"><span class="code-lang">JavaScript — ROOMS data</span></div>
+        <div class="code-block"><span class="c-key">const</span> ROOMS = [
+  <span class="c-comment">// BLOC 1</span>
+  {id:<span class="c-num">101</span>, bloc:<span class="c-num">1</span>, type:<span class="c-str">'F3'</span>, price:<span class="c-num">6000</span>},
+  {id:<span class="c-num">102</span>, bloc:<span class="c-num">1</span>, type:<span class="c-str">'F4'</span>, price:<span class="c-num">8000</span>},
+  {id:<span class="c-num">103</span>, bloc:<span class="c-num">1</span>, type:<span class="c-str">'F4'</span>, price:<span class="c-num">8000</span>},
+  {id:<span class="c-num">104</span>, bloc:<span class="c-num">1</span>, type:<span class="c-str">'F4'</span>, price:<span class="c-num">8000</span>},
+  {id:<span class="c-num">105</span>, bloc:<span class="c-num">1</span>, type:<span class="c-str">'F4'</span>, price:<span class="c-num">8000</span>},
+  {id:<span class="c-num">106</span>, bloc:<span class="c-num">1</span>, type:<span class="c-str">'F3'</span>, price:<span class="c-num">6000</span>},
+  {id:<span class="c-num">107</span>, bloc:<span class="c-num">1</span>, type:<span class="c-str">'F3'</span>, price:<span class="c-num">6000</span>},
+  {id:<span class="c-num">108</span>, bloc:<span class="c-num">1</span>, type:<span class="c-str">'F3'</span>, price:<span class="c-num">6000</span>},
+  {id:<span class="c-num">109</span>, bloc:<span class="c-num">1</span>, type:<span class="c-str">'F3'</span>, price:<span class="c-num">6000</span>},
+  <span class="c-comment">// BLOC 2</span>
+  {id:<span class="c-num">201</span>, bloc:<span class="c-num">2</span>, type:<span class="c-str">'F4'</span>, price:<span class="c-num">8000</span>},
+  {id:<span class="c-num">202</span>, bloc:<span class="c-num">2</span>, type:<span class="c-str">'F4'</span>, price:<span class="c-num">8000</span>},
+  {id:<span class="c-num">203</span>, bloc:<span class="c-num">2</span>, type:<span class="c-str">'F4'</span>, price:<span class="c-num">8000</span>},
+  {id:<span class="c-num">204</span>, bloc:<span class="c-num">2</span>, type:<span class="c-str">'F4'</span>, price:<span class="c-num">8000</span>},
+  {id:<span class="c-num">205</span>, bloc:<span class="c-num">2</span>, type:<span class="c-str">'F4'</span>, price:<span class="c-num">8000</span>},
+  {id:<span class="c-num">206</span>, bloc:<span class="c-num">2</span>, type:<span class="c-str">'F3'</span>, price:<span class="c-num">6000</span>},
+  {id:<span class="c-num">207</span>, bloc:<span class="c-num">2</span>, type:<span class="c-str">'F3'</span>, price:<span class="c-num">6000</span>},
+  {id:<span class="c-num">208</span>, bloc:<span class="c-num">2</span>, type:<span class="c-str">'F3'</span>, price:<span class="c-num">6000</span>},
+  {id:<span class="c-num">209</span>, bloc:<span class="c-num">2</span>, type:<span class="c-str">'F3'</span>, price:<span class="c-num">6000</span>},
+  {id:<span class="c-num">210</span>, bloc:<span class="c-num">2</span>, type:<span class="c-str">'F3'</span>, price:<span class="c-num">6000</span>},
+  <span class="c-comment">// لإضافة شقة جديدة: {id:211, bloc:2, type:'F3', price:6000},</span>
+];</div>
+      </div>
+      <div class="alert info">
+        <span class="alert-icon">💡</span>
+        <div>لتغيير سعر F3 إلى 7,000 دج مثلاً: ابحث عن <code>price:6000</code> في الكود وغيّره إلى <code>price:7000</code> — سيتحدث تلقائياً في كل الحسابات</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     STEP 8 — مشاكل شائعة
+═══════════════════════════════════════ -->
+<div class="step-block" id="step8">
+  <div class="step-header">
+    <div class="step-num red">8</div>
+    <div>
+      <div class="step-title">مشاكل شائعة وحلولها</div>
+      <div class="step-subtitle">إذا واجهتك مشكلة — الحل هنا</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>المشكلة</th><th>السبب المحتمل</th><th>الحل</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>"اسم المستخدم أو كلمة المرور غير صحيحة"</td>
+            <td>البريد أو كلمة المرور خاطئة</td>
+            <td>اذهب إلى Firebase → Authentication → Users وتحقق من البريد الإلكتروني. يمكنك إعادة تعيين كلمة المرور</td>
+          </tr>
+          <tr>
+            <td>"Missing or insufficient permissions"</td>
+            <td>قواعد Firestore غير صحيحة</td>
+            <td>اذهب إلى Firestore → Rules وتأكد من لصق الكود الصحيح والضغط على Publish</td>
+          </tr>
+          <tr>
+            <td>البيانات لا تُحفظ ولا تظهر</td>
+            <td>firebaseConfig خاطئ</td>
+            <td>افتح index.html وتأكد أن القيم في firebaseConfig مطابقة تماماً لما في Firebase Console</td>
+          </tr>
+          <tr>
+            <td>اللوغو لا يظهر</td>
+            <td>الملف مفقود أو الاسم خاطئ</td>
+            <td>تأكد أن الملف اسمه بالضبط <code>logo.png</code> داخل مجلد <code>assets</code></td>
+          </tr>
+          <tr>
+            <td>الموقع يفتح لكن يبدو فارغاً</td>
+            <td>ملف style.css غير موجود</td>
+            <td>تأكد أن <code>style.css</code> في نفس مجلد <code>index.html</code></td>
+          </tr>
+          <tr>
+            <td>الموقع لا يفتح على Vercel</td>
+            <td>خطأ في النشر</td>
+            <td>افتح Vercel Dashboard واضغط على المشروع — ستجد سجل الأخطاء (Deployment logs)</td>
+          </tr>
+          <tr>
+            <td>تسجيل الدخول يعمل لكن البيانات لا تظهر</td>
+            <td>لم تُنشر قواعد الأمان</td>
+            <td>Firestore → Rules → تأكد من الضغط على Publish بعد لصق الكود</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sub-title" style="margin-top:20px"><span class="sub-icon">🔄</span>كيف تحدّث الموقع في المستقبل</div>
+    <ul class="steps-list">
+      <li><div class="step-n">1</div><div class="step-content">عدّل الملفات في VSCode على جهازك</div></li>
+      <li><div class="step-n">2</div><div class="step-content">اذهب إلى GitHub → repository الخاص بك → <b>Add file</b> → <b>Upload files</b></div></li>
+      <li><div class="step-n">3</div><div class="step-content">ارفع الملفات المعدّلة وانتظر حتى يكتمل الرفع</div></li>
+      <li><div class="step-n">4</div><div class="step-content">اكتب وصفاً مختصراً مثل "update prices" واضغط <b>Commit changes</b></div></li>
+      <li><div class="step-n">5</div><div class="step-content">Vercel يكتشف التغيير تلقائياً وينشر النسخة الجديدة خلال دقيقة!</div></li>
+    </ul>
+  </div>
+</div>
+
+<!-- التكلفة -->
+<div class="step-block">
+  <div class="step-header">
+    <div class="step-num green">💰</div>
+    <div>
+      <div class="step-title">التكلفة الإجمالية</div>
+      <div class="step-subtitle">كل شيء مجاني 100% — لا بطاقة بنكية مطلوبة</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="cost-grid">
+      <div class="cost-card">
+        <div class="cost-name">🔥 Firebase</div>
+        <div class="cost-price">0 دج</div>
+        <div class="cost-note">50,000 قراءة يومياً مجاناً</div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-name">🐙 GitHub</div>
+        <div class="cost-price">0 دج</div>
+        <div class="cost-note">مستودعات عامة مجانية</div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-name">🚀 Vercel</div>
+        <div class="cost-price">0 دج</div>
+        <div class="cost-note">100GB نطاق ترددي/شهر</div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-name">💻 VSCode</div>
+        <div class="cost-price">0 دج</div>
+        <div class="cost-note">مفتوح المصدر من Microsoft</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="text-align:center;padding:32px 0 16px;color:var(--muted);font-size:12px;border-top:0.5px solid var(--border);margin-top:20px">
+  <div style="font-size:16px;font-weight:700;color:var(--dark);margin-bottom:8px">مجمع نسيب للعطل الداخلية</div>
+  <div>RÉSIDENCE FATEH TOURISME · Cité 176 logements, zone urbaine ouest, Biskra</div>
+  <div style="margin-top:4px">✆ 0555009760 · 0555009758 · 0555009761 · Fax: 033500954</div>
+  <div style="margin-top:4px">✉ fatehresidence@gmail.com</div>
+  <div style="margin-top:16px;color:#bbb;font-size:11px">تم إنشاء هذا الدليل خصيصاً لإقامة فاتح</div>
+</div>
+
+</div><!-- end main-wrap -->
+
+<script>
+// Smooth scroll for TOC links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const el = document.querySelector(a.getAttribute('href'));
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+</script>
+</body>
+</html>

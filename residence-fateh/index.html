@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إقامة فاتح — نظام الإدارة</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-page">
+  <div class="login-card">
+    <img src="assets/logo.png" alt="إقامة فاتح" class="login-logo-img">
+    <p class="login-title">تسجيل الدخول إلى نظام الإدارة</p>
+    <div class="lf-group">
+      <label>اسم المستخدم</label>
+      <input type="text" id="l-user" placeholder="admin" autocomplete="username">
+    </div>
+    <div class="lf-group">
+      <label>كلمة المرور</label>
+      <input type="password" id="l-pass" placeholder="••••••••">
+    </div>
+    <button class="login-btn" id="login-btn">دخول ←</button>
+    <div class="login-error" id="login-error">اسم المستخدم أو كلمة المرور غير صحيحة</div>
+    <div class="login-loading" id="login-loading">⏳ جارٍ الاتصال...</div>
+    <div class="login-hint">
+      ⚙️ قبل الاستخدام: اتبع خطوات <b>GUIDE.md</b> لإعداد Firebase
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="main-app">
+  <div class="topbar">
+    <div class="logo-box">
+      <img src="assets/logo.png" alt="إقامة فاتح" class="topbar-logo">
+      <div>
+        <div class="hotel-name">مجمع نسيب للعطل الداخلية</div>
+        <div class="hotel-sub">RÉSIDENCE FATEH TOURISME — Biskra</div>
+      </div>
+    </div>
+    <div class="occ-area">
+      <div class="occ-badge" id="occ-badge">نسبة الإشغال: —</div>
+      <div class="top-stats">
+        <div class="ts"><span class="ts-v" id="ts-total">19</span><span class="ts-l">شقة</span></div>
+        <div class="ts"><span class="ts-v" id="ts-occ">0</span><span class="ts-l">مشغول</span></div>
+        <div class="ts"><span class="ts-v" id="ts-free">0</span><span class="ts-l">متاح</span></div>
+        <div class="ts"><span class="ts-v" id="ts-arr">0</span><span class="ts-l">وصول اليوم</span></div>
+        <div class="ts"><span class="ts-v" id="ts-dep">0</span><span class="ts-l">مغادرة اليوم</span></div>
+      </div>
+    </div>
+    <button class="logout-btn" id="logout-btn">⏻ خروج</button>
+  </div>
+
+  <div class="navtabs">
+    <div class="nt on"  data-tab="planning">📅 Planning</div>
+    <div class="nt" data-tab="chambres">🏠 الشقق</div>
+    <div class="nt" data-tab="reservations">📋 الحجوزات</div>
+    <div class="nt" data-tab="booking">➕ حجز جديد</div>
+    <div class="nt" data-tab="facture">🧾 الفواتير</div>
+  </div>
+
+  <div class="content">
+
+    <!-- PLANNING -->
+    <div class="sec on" id="sec-planning">
+      <div class="scards" id="stat-cards"></div>
+      <div class="planning-wrap">
+        <div class="plan-toolbar">
+          <select id="filter-bloc">
+            <option value="all">كل الكتل</option>
+            <option value="1">BLOC 1 (101–109)</option>
+            <option value="2">BLOC 2 (201–210)</option>
+          </select>
+          <select id="filter-type">
+            <option value="all">كل الأنواع</option>
+            <option value="F3">F3 — 6,000 دج</option>
+            <option value="F4">F4 — 8,000 دج</option>
+          </select>
+          <div class="plan-nav">
+            <button class="btn-nav" id="prev-month">‹</button>
+            <span class="plan-month" id="plan-month-label"></span>
+            <button class="btn-nav" id="next-month">›</button>
+          </div>
+          <button class="btn btno" id="new-booking-btn">＋ حجز جديد</button>
+        </div>
+        <div class="plan-scroll">
+          <table class="plan-table" id="plan-table"></table>
+        </div>
+      </div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#c5f0cc;border:1px solid #80d890"></div>مقيم</div>
+        <div class="leg"><div class="leg-dot" style="background:#cfe0f8;border:1px solid #80b0e8"></div>قادم</div>
+        <div class="leg"><div class="leg-dot" style="background:#f8d0d0;border:1px solid #e08080"></div>غادر</div>
+        <div class="leg"><div class="leg-dot" style="background:rgba(200,150,26,.2)"></div>اليوم</div>
+      </div>
+    </div>
+
+    <!-- CHAMBRES -->
+    <div class="sec" id="sec-chambres">
+      <div class="two-col">
+        <div class="panel">
+          <div class="ph">BLOC 1 <span class="ph-badge">101 — 109</span></div>
+          <table class="tbl"><thead><tr><th>رقم</th><th>النوع</th><th>السعر/ليلة</th><th>الحالة</th></tr></thead><tbody id="bloc1-tbody"></tbody></table>
+        </div>
+        <div class="panel">
+          <div class="ph">BLOC 2 <span class="ph-badge">201 — 210</span></div>
+          <table class="tbl"><thead><tr><th>رقم</th><th>النوع</th><th>السعر/ليلة</th><th>الحالة</th></tr></thead><tbody id="bloc2-tbody"></tbody></table>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="ph">ملخص</div>
+        <div class="stats-row">
+          <span>الإجمالي: <b>19</b></span>
+          <span class="c-green">F3 متاح: <b id="f3-free">—</b></span>
+          <span class="c-blue">F4 متاح: <b id="f4-free">—</b></span>
+          <span class="c-orange">مشغول: <b id="occ-count">—</b></span>
+          <span class="c-muted">إيراد اليوم: <b id="day-revenue">—</b></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESERVATIONS -->
+    <div class="sec" id="sec-reservations">
+      <div class="search-bar">
+        <input type="text" id="res-search" placeholder="بحث باسم النزيل أو رقم الشقة...">
+        <select id="res-filter">
+          <option value="all">كل الحجوزات</option>
+          <option value="مقيم">مقيم الآن</option>
+          <option value="قادم">قادم</option>
+          <option value="غادر">غادر</option>
+        </select>
+        <button class="btn btng" id="res-new-btn">＋ حجز جديد</button>
+      </div>
+      <div class="panel">
+        <table class="tbl">
+          <thead><tr><th>#</th><th>النزيل</th><th>الشقة</th><th>النوع</th><th>وصول</th><th>مغادرة</th><th>ليالي</th><th>المبلغ</th><th>الحالة</th><th></th></tr></thead>
+          <tbody id="res-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- BOOKING -->
+    <div class="sec" id="sec-booking">
+      <div class="two-col">
+        <div class="panel">
+          <div class="ph">إضافة حجز جديد</div>
+          <div class="fgrid">
+            <div class="fg"><label>الاسم الكامل *</label><input id="b-name" type="text" placeholder="محمد بن عمر"></div>
+            <div class="fg"><label>رقم الهاتف *</label><input id="b-phone" type="tel" placeholder="0555 000 000"></div>
+            <div class="fg"><label>رقم الهوية / الجواز</label><input id="b-id" type="text" placeholder="رقم الوثيقة"></div>
+            <div class="fg"><label>عدد الأشخاص</label><input id="b-pax" type="number" min="1" max="12" value="2"></div>
+            <div class="fg">
+              <label>نوع الشقة *</label>
+              <select id="b-type">
+                <option value="F3">F3 — 6,000 دج / ليلة</option>
+                <option value="F4">F4 — 8,000 دج / ليلة</option>
+              </select>
+            </div>
+            <div class="fg"><label>رقم الشقة *</label><select id="b-room"></select></div>
+            <div class="fg"><label>تاريخ الوصول *</label><input id="b-in" type="date"></div>
+            <div class="fg"><label>تاريخ المغادرة *</label><input id="b-out" type="date"></div>
+            <div class="fg full"><label>ملاحظات</label><input id="b-note" type="text" placeholder="طلبات خاصة، VIP..."></div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btng" id="confirm-booking-btn">✓ تأكيد الحجز</button>
+            <button class="btn" id="clear-booking-btn">مسح</button>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="ph">ملخص الحجز</div>
+          <div id="booking-summary" class="empty-msg">اختر النوع والتواريخ</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INVOICES -->
+    <div class="sec" id="sec-facture">
+      <div class="two-col">
+        <div class="panel">
+          <div class="ph">سجل الفواتير <span class="badge-count" id="inv-count"></span></div>
+          <table class="tbl"><thead><tr><th>رقم</th><th>النزيل</th><th>الشقة</th><th>المبلغ</th><th>الحالة</th></tr></thead><tbody id="inv-tbody"></tbody></table>
+        </div>
+        <div id="inv-preview" class="panel">
+          <div class="ph">معاينة الفاتورة</div>
+          <div class="empty-msg">اختر فاتورة لعرضها</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal"><button class="mc" id="modal-close">✕</button><div id="modal-body"></div></div>
+</div>
+<div class="notif" id="notif"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+// ╔══════════════════════════════════════════╗
+// ║  🔥 ضع إعدادات Firebase هنا             ║
+// ║  من: Firebase Console → Project Settings ║
+// ╚══════════════════════════════════════════╝
+const firebaseConfig = {
+  apiKey:            "PASTE_YOUR_API_KEY_HERE",
+  authDomain:        "PASTE_YOUR_PROJECT.firebaseapp.com",
+  projectId:         "PASTE_YOUR_PROJECT_ID",
+  storageBucket:     "PASTE_YOUR_PROJECT.appspot.com",
+  messagingSenderId: "PASTE_YOUR_SENDER_ID",
+  appId:             "PASTE_YOUR_APP_ID"
+};
+
+const app  = initializeApp(firebaseConfig);
+const db   = getFirestore(app);
+const auth = getAuth(app);
+
+// ── بيانات الشقق (ثابتة) ──────────────────
+const ROOMS = [
+  {id:101,bloc:1,type:'F3',price:6000},
+  {id:102,bloc:1,type:'F4',price:8000},{id:103,bloc:1,type:'F4',price:8000},
+  {id:104,bloc:1,type:'F4',price:8000},{id:105,bloc:1,type:'F4',price:8000},
+  {id:106,bloc:1,type:'F3',price:6000},{id:107,bloc:1,type:'F3',price:6000},
+  {id:108,bloc:1,type:'F3',price:6000},{id:109,bloc:1,type:'F3',price:6000},
+  {id:201,bloc:2,type:'F4',price:8000},{id:202,bloc:2,type:'F4',price:8000},
+  {id:203,bloc:2,type:'F4',price:8000},{id:204,bloc:2,type:'F4',price:8000},
+  {id:205,bloc:2,type:'F4',price:8000},
+  {id:206,bloc:2,type:'F3',price:6000},{id:207,bloc:2,type:'F3',price:6000},
+  {id:208,bloc:2,type:'F3',price:6000},{id:209,bloc:2,type:'F3',price:6000},
+  {id:210,bloc:2,type:'F3',price:6000}
+];
+
+const MONTHS=['جانفي','فيفري','مارس','أفريل','ماي','جوان','جويلية','أوت','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+const DAYS  =['أح','اث','ث','أر','خ','ج','س'];
+const today =new Date();
+const todayStr=today.toISOString().split('T')[0];
+let planYear=today.getFullYear(), planMonth=today.getMonth();
+let currentTab='planning', BOOKINGS=[];
+
+// ── أدوات مساعدة ─────────────────────────
+const nights=(a,b)=>Math.max(0,Math.round((new Date(b)-new Date(a))/864e5));
+const fmt=d=>{if(!d)return'—';const[y,m,day]=d.split('-');return`${day}/${m}/${y}`;};
+const roomById=id=>ROOMS.find(r=>r.id===id);
+const calcStatus=(cin,cout)=>cin<=todayStr&&cout>todayStr?'مقيم':cin>todayStr?'قادم':'غادر';
+function notify(msg){const n=document.getElementById('notif');n.textContent=msg;n.classList.add('show');setTimeout(()=>n.classList.remove('show'),3000);}
+function closeModal(){document.getElementById('modal').classList.remove('show');}
+
+// ── خريطة المستخدمين ─────────────────────
+// ⚠️ عدّل البريد الإلكتروني ليطابق ما أنشأته في Firebase Auth
+const USERS={'admin':'admin@fateh-hotel.com','fateh':'fateh@fateh-hotel.com','مدير':'admin@fateh-hotel.com'};
+
+// ── تسجيل الدخول ─────────────────────────
+document.getElementById('login-btn').onclick=async()=>{
+  const u=document.getElementById('l-user').value.trim();
+  const p=document.getElementById('l-pass').value;
+  const email=USERS[u];
+  if(!email){showErr();return;}
+  document.getElementById('login-loading').style.display='block';
+  document.getElementById('login-btn').disabled=true;
+  try{await signInWithEmailAndPassword(auth,email,p);}
+  catch(e){document.getElementById('login-loading').style.display='none';document.getElementById('login-btn').disabled=false;showErr();}
+};
+document.getElementById('l-pass').onkeydown=e=>{if(e.key==='Enter')document.getElementById('login-btn').click();};
+document.getElementById('logout-btn').onclick=()=>signOut(auth);
+function showErr(){document.getElementById('login-error').style.display='block';setTimeout(()=>document.getElementById('login-error').style.display='none',3000);}
+
+onAuthStateChanged(auth,user=>{
+  if(user){
+    document.getElementById('login-page').style.display='none';
+    document.getElementById('main-app').style.display='flex';
+    startListening();
+  }else{
+    document.getElementById('login-page').style.display='flex';
+    document.getElementById('main-app').style.display='none';
+  }
+});
+
+// ── Firestore ─────────────────────────────
+function startListening(){
+  onSnapshot(query(collection(db,'bookings'),orderBy('checkin','desc')),snap=>{
+    BOOKINGS=snap.docs.map(d=>({fid:d.id,...d.data()}));
+    computeStats();renderCurrentTab();
+  });
+}
+const dbAdd=d=>addDoc(collection(db,'bookings'),d);
+const dbUpdate=(fid,u)=>updateDoc(doc(db,'bookings',fid),u);
+const dbDelete=fid=>deleteDoc(doc(db,'bookings',fid));
+
+// ── تبويبات ───────────────────────────────
+document.querySelectorAll('.nt').forEach(el=>el.onclick=()=>switchTab(el.dataset.tab));
+function switchTab(tab){
+  currentTab=tab;
+  document.querySelectorAll('.nt').forEach(n=>n.classList.remove('on'));
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelector(`.nt[data-tab="${tab}"]`).classList.add('on');
+  document.getElementById('sec-'+tab).classList.add('on');
+  renderCurrentTab();
+}
+function renderCurrentTab(){
+  ({planning:renderPlanning,chambres:renderChambres,reservations:renderReservations,facture:renderInvoices,booking:()=>{updateRoomOpts();setTodayDate();}})[currentTab]?.();
+}
+
+// ── إحصاءات ───────────────────────────────
+function computeStats(){
+  const occ=BOOKINGS.filter(b=>b.checkin<=todayStr&&b.checkout>todayStr);
+  const occIds=new Set(occ.map(b=>b.roomId));
+  const arr=BOOKINGS.filter(b=>b.checkin===todayStr).length;
+  const dep=BOOKINGS.filter(b=>b.checkout===todayStr).length;
+  const free=ROOMS.length-occIds.size;
+  const pct=Math.round(occIds.size/ROOMS.length*100);
+  document.getElementById('occ-badge').textContent=`نسبة الإشغال: ${pct}%`;
+  document.getElementById('ts-occ').textContent=occIds.size;
+  document.getElementById('ts-free').textContent=free;
+  document.getElementById('ts-arr').textContent=arr;
+  document.getElementById('ts-dep').textContent=dep;
+  document.getElementById('stat-cards').innerHTML=[
+    {v:ROOMS.length,l:'إجمالي الشقق'},{v:occIds.size,l:'مشغولة'},
+    {v:free,l:'متاحة'},{v:arr,l:'وصول اليوم'},{v:dep,l:'مغادرة اليوم'},
+  ].map(c=>`<div class="scard"><div class="sc-v">${c.v}</div><div class="sc-l">${c.l}</div></div>`).join('');
+}
+
+// ── Planning ──────────────────────────────
+document.getElementById('prev-month').onclick=()=>{planMonth--;if(planMonth<0){planMonth=11;planYear--;}renderPlanning();};
+document.getElementById('next-month').onclick=()=>{planMonth++;if(planMonth>11){planMonth=0;planYear++;}renderPlanning();};
+document.getElementById('filter-bloc').onchange=renderPlanning;
+document.getElementById('filter-type').onchange=renderPlanning;
+document.getElementById('new-booking-btn').onclick=()=>switchTab('booking');
+
+function renderPlanning(){
+  const dim=new Date(planYear,planMonth+1,0).getDate();
+  document.getElementById('plan-month-label').textContent=`${MONTHS[planMonth]} ${planYear}`;
+  const bf=document.getElementById('filter-bloc').value;
+  const tf=document.getElementById('filter-type').value;
+  const rooms=ROOMS.filter(r=>(bf==='all'||r.bloc===+bf)&&(tf==='all'||r.type===tf));
+  let html='<thead><tr><th class="room-h">الشقة</th>';
+  for(let d=1;d<=dim;d++){
+    const ds=`${planYear}-${String(planMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    html+=`<th class="${ds===todayStr?'today-th':''}">${d}<br><span class="day-name">${DAYS[new Date(ds).getDay()]}</span></th>`;
+  }
+  html+='</tr></thead><tbody>';
+  rooms.forEach(room=>{
+    const rbks=BOOKINGS.filter(b=>b.roomId===room.id);
+    html+=`<tr><td class="room-cell"><b>${room.id}</b><span class="rtype">[${room.type}] ${room.price.toLocaleString()} دج</span></td>`;
+    for(let d=1;d<=dim;d++){
+      const ds=`${planYear}-${String(planMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const bk=rbks.find(b=>b.checkin<=ds&&b.checkout>ds);
+      let inner='';
+      if(bk&&bk.checkin===ds){
+        const color=bk.status==='مقيم'?'bk-green':bk.status==='قادم'?'bk-blue':'bk-red';
+        const w=Math.min(nights(bk.checkin,bk.checkout),dim-d+1)*38-3;
+        inner=`<div class="booking-block ${color}" style="width:${w}px;left:1px" data-fid="${bk.fid}" title="${bk.name}">${bk.name.split(' ')[0]}</div>`;
+      }
+      html+=`<td class="day-cell${ds===todayStr?' today-col':''}${bk?' occ-cell':''}" data-room="${room.id}" data-date="${ds}">${inner}</td>`;
+    }
+    html+='</tr>';
+  });
+  document.getElementById('plan-table').innerHTML=html+'</tbody>';
+  document.querySelectorAll('.booking-block').forEach(el=>el.onclick=e=>{e.stopPropagation();const bk=BOOKINGS.find(b=>b.fid===el.dataset.fid);if(bk)showDetail(bk);});
+  document.querySelectorAll('.day-cell').forEach(el=>el.onclick=()=>{
+    const rid=+el.dataset.room,ds=el.dataset.date;
+    const bk=BOOKINGS.find(b=>b.roomId===rid&&b.checkin<=ds&&b.checkout>ds);
+    if(bk){showDetail(bk);return;}
+    const room=roomById(rid);
+    document.getElementById('b-type').value=room.type;updateRoomOpts();
+    document.getElementById('b-room').value=rid;
+    document.getElementById('b-in').value=ds;document.getElementById('b-out').value='';
+    calcSummary();switchTab('booking');
+  });
+}
+
+// ── تفاصيل الحجز ─────────────────────────
+function showDetail(b){
+  const n=nights(b.checkin,b.checkout),price=b.type==='F3'?6000:8000,total=n*price;
+  const sc=b.status==='مقيم'?'bf3':b.status==='قادم'?'bf4':'bgone';
+  document.getElementById('modal-body').innerHTML=`
+    <h3>تفاصيل الحجز — شقة ${b.roomId}</h3>
+    <div class="detail-grid">
+      <div class="drow"><span>النزيل</span><b>${b.name}</b></div>
+      <div class="drow"><span>الهاتف</span><span>${b.phone}</span></div>
+      ${b.idNum?`<div class="drow"><span>رقم الهوية</span><span>${b.idNum}</span></div>`:''}
+      <div class="drow"><span>الشقة</span><span>${b.roomId} <span class="badge ${b.type==='F3'?'bf3':'bf4'}">${b.type}</span> BLOC ${roomById(b.roomId)?.bloc}</span></div>
+      <div class="drow"><span>عدد الأشخاص</span><span>${b.pax}</span></div>
+      <div class="drow"><span>وصول</span><span>${fmt(b.checkin)}</span></div>
+      <div class="drow"><span>مغادرة</span><span>${fmt(b.checkout)}</span></div>
+      <div class="drow"><span>الليالي</span><b>${n}</b></div>
+      <div class="drow"><span>الحالة</span><span class="badge ${sc}">${b.status}</span></div>
+      ${b.note?`<div class="drow"><span>ملاحظات</span><span>${b.note}</span></div>`:''}
+      <div class="drow total-row"><span>الإجمالي</span><b class="total-amount">${total.toLocaleString()} دج</b></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btng" id="md-inv">🧾 فاتورة</button>
+      <button class="btn btno" id="md-out">✓ مغادرة</button>
+      <button class="btn btnr" id="md-del">🗑 حذف</button>
+      <button class="btn"      id="md-cls">إغلاق</button>
+    </div>`;
+  document.getElementById('md-inv').onclick=()=>{closeModal();showInvoice(b);switchTab('facture');};
+  document.getElementById('md-out').onclick=async()=>{await dbUpdate(b.fid,{status:'غادر'});closeModal();notify('✓ تم تسجيل مغادرة '+b.name);};
+  document.getElementById('md-del').onclick=async()=>{if(!confirm('هل أنت متأكد؟'))return;await dbDelete(b.fid);closeModal();notify('تم حذف الحجز');};
+  document.getElementById('md-cls').onclick=closeModal;
+  document.getElementById('modal').classList.add('show');
+}
+document.getElementById('modal-close').onclick=closeModal;
+document.getElementById('modal').onclick=e=>{if(e.target===e.currentTarget)closeModal();};
+
+// ── الشقق ─────────────────────────────────
+function renderChambres(){
+  const occIds=new Set(BOOKINGS.filter(b=>b.checkin<=todayStr&&b.checkout>todayStr).map(b=>b.roomId));
+  const row=r=>{const occ=occIds.has(r.id);const bk=occ?BOOKINGS.find(b=>b.roomId===r.id&&b.checkin<=todayStr&&b.checkout>todayStr):null;
+    return`<tr><td><b>${r.id}</b></td><td><span class="badge ${r.type==='F3'?'bf3':'bf4'}">${r.type}</span></td><td>${r.price.toLocaleString()} دج</td><td><span class="badge ${occ?'bocc':'bfree'}">${occ?'مشغول'+(bk?' — '+bk.name.split(' ')[0]:''):'متاح'}</span></td></tr>`;};
+  document.getElementById('bloc1-tbody').innerHTML=ROOMS.filter(r=>r.bloc===1).map(row).join('');
+  document.getElementById('bloc2-tbody').innerHTML=ROOMS.filter(r=>r.bloc===2).map(row).join('');
+  const f3f=ROOMS.filter(r=>r.type==='F3'&&!occIds.has(r.id)).length;
+  const f4f=ROOMS.filter(r=>r.type==='F4'&&!occIds.has(r.id)).length;
+  const rev=BOOKINGS.filter(b=>b.checkin<=todayStr&&b.checkout>todayStr).reduce((s,b)=>s+(roomById(b.roomId)?.price||0),0);
+  document.getElementById('f3-free').textContent=f3f;
+  document.getElementById('f4-free').textContent=f4f;
+  document.getElementById('occ-count').textContent=occIds.size;
+  document.getElementById('day-revenue').textContent=rev.toLocaleString()+' دج';
+}
+
+// ── الحجوزات ──────────────────────────────
+document.getElementById('res-search').oninput=renderReservations;
+document.getElementById('res-filter').onchange=renderReservations;
+document.getElementById('res-new-btn').onclick=()=>switchTab('booking');
+function renderReservations(){
+  const q=document.getElementById('res-search').value.toLowerCase();
+  const f=document.getElementById('res-filter').value;
+  const list=BOOKINGS.filter(b=>(f==='all'||b.status===f)&&(!q||b.name.toLowerCase().includes(q)||String(b.roomId).includes(q)));
+  document.getElementById('res-tbody').innerHTML=list.map(b=>{
+    const n=nights(b.checkin,b.checkout),tot=n*(b.type==='F3'?6000:8000);
+    const sc=b.status==='مقيم'?'bf3':b.status==='قادم'?'bf4':'bgone';
+    return`<tr class="clickable-row" data-fid="${b.fid}">
+      <td style="font-size:9px;color:#aaa">${b.fid?.slice(0,5)}</td>
+      <td>${b.name}</td><td><b>${b.roomId}</b></td>
+      <td><span class="badge ${b.type==='F3'?'bf3':'bf4'}">${b.type}</span></td>
+      <td>${fmt(b.checkin)}</td><td>${fmt(b.checkout)}</td>
+      <td><b>${n}</b></td><td>${tot.toLocaleString()} دج</td>
+      <td><span class="badge ${sc}">${b.status}</span></td>
+      <td><button class="btn btno small-btn" data-fid="${b.fid}">فاتورة</button></td>
+    </tr>`;
+  }).join('');
+  document.querySelectorAll('#res-tbody .clickable-row').forEach(row=>row.onclick=e=>{if(e.target.tagName==='BUTTON')return;const bk=BOOKINGS.find(b=>b.fid===row.dataset.fid);if(bk)showDetail(bk);});
+  document.querySelectorAll('#res-tbody .small-btn').forEach(btn=>btn.onclick=e=>{e.stopPropagation();const bk=BOOKINGS.find(b=>b.fid===btn.dataset.fid);if(bk){showInvoice(bk);switchTab('facture');}});
+}
+
+// ── نموذج الحجز ───────────────────────────
+function setTodayDate(){if(!document.getElementById('b-in').value)document.getElementById('b-in').value=todayStr;}
+function updateRoomOpts(){
+  const type=document.getElementById('b-type').value;
+  const cin=document.getElementById('b-in').value||todayStr;
+  const cout=document.getElementById('b-out').value||todayStr;
+  const busy=new Set(BOOKINGS.filter(b=>b.checkin<cout&&b.checkout>cin&&b.status!=='غادر').map(b=>b.roomId));
+  const avail=ROOMS.filter(r=>r.type===type&&!busy.has(r.id));
+  document.getElementById('b-room').innerHTML=avail.length?avail.map(r=>`<option value="${r.id}">${r.id} — BLOC ${r.bloc}</option>`).join(''):'<option value="">لا توجد شقق متاحة</option>';
+  calcSummary();
+}
+function calcSummary(){
+  const type=document.getElementById('b-type').value;
+  const cin=document.getElementById('b-in').value;
+  const cout=document.getElementById('b-out').value;
+  const room=document.getElementById('b-room').value;
+  const el=document.getElementById('booking-summary');
+  if(!cin||!cout||!room){el.innerHTML='<span class="empty-msg">اختر النوع والتواريخ</span>';return;}
+  const n=nights(cin,cout);
+  if(n<=0){el.innerHTML='<span style="color:#b01c1c">تاريخ المغادرة يجب أن يكون بعد تاريخ الوصول</span>';return;}
+  const price=type==='F3'?6000:8000;
+  el.innerHTML=`<div class="detail-grid">
+    <div class="drow"><span>النوع</span><span class="badge ${type==='F3'?'bf3':'bf4'}">${type}</span></div>
+    <div class="drow"><span>الشقة</span><b>${room}</b></div>
+    <div class="drow"><span>وصول</span><span>${fmt(cin)}</span></div>
+    <div class="drow"><span>مغادرة</span><span>${fmt(cout)}</span></div>
+    <div class="drow"><span>الليالي</span><b>${n}</b></div>
+    <div class="drow"><span>السعر/ليلة</span><span>${price.toLocaleString()} دج</span></div>
+    <div class="drow total-row"><span>الإجمالي</span><b class="total-amount">${(n*price).toLocaleString()} دج</b></div>
+  </div>`;
+}
+document.getElementById('b-type').onchange=()=>{updateRoomOpts();calcSummary();};
+document.getElementById('b-room').onchange=calcSummary;
+document.getElementById('b-in').oninput=()=>{updateRoomOpts();calcSummary();};
+document.getElementById('b-out').oninput=()=>{updateRoomOpts();calcSummary();};
+
+document.getElementById('confirm-booking-btn').onclick=async()=>{
+  const name=document.getElementById('b-name').value.trim();
+  const phone=document.getElementById('b-phone').value.trim();
+  const cin=document.getElementById('b-in').value;
+  const cout=document.getElementById('b-out').value;
+  const room=+document.getElementById('b-room').value;
+  const type=document.getElementById('b-type').value;
+  if(!name||!cin||!cout||!room){notify('⚠ يرجى ملء الحقول الإلزامية');return;}
+  if(nights(cin,cout)<=0){notify('⚠ تاريخ المغادرة يجب أن يكون بعد تاريخ الوصول');return;}
+  if(BOOKINGS.find(b=>b.roomId===room&&b.checkin<cout&&b.checkout>cin&&b.status!=='غادر')){notify('⚠ هذه الشقة محجوزة في هذه الفترة!');return;}
+  const btn=document.getElementById('confirm-booking-btn');
+  btn.disabled=true;btn.textContent='⏳ جارٍ الحفظ...';
+  try{
+    await dbAdd({name,phone,idNum:document.getElementById('b-id').value,roomId:room,type,checkin:cin,checkout:cout,pax:+document.getElementById('b-pax').value||1,note:document.getElementById('b-note').value,status:calcStatus(cin,cout),createdAt:new Date().toISOString()});
+    clearBooking();notify('✓ تم تأكيد الحجز بنجاح لـ '+name);switchTab('planning');
+  }catch(e){notify('❌ خطأ: '+e.message);}
+  btn.disabled=false;btn.textContent='✓ تأكيد الحجز';
+};
+document.getElementById('clear-booking-btn').onclick=clearBooking;
+function clearBooking(){['b-name','b-phone','b-id','b-note'].forEach(id=>document.getElementById(id).value='');document.getElementById('b-pax').value=2;document.getElementById('b-in').value='';document.getElementById('b-out').value='';document.getElementById('booking-summary').innerHTML='<span class="empty-msg">اختر النوع والتواريخ</span>';}
+
+// ── الفواتير ──────────────────────────────
+function renderInvoices(){
+  document.getElementById('inv-count').textContent=BOOKINGS.length;
+  document.getElementById('inv-tbody').innerHTML=BOOKINGS.map(b=>{
+    const n=nights(b.checkin,b.checkout),tot=n*(b.type==='F3'?6000:8000);
+    const sc=b.status==='مقيم'?'bf3':b.status==='قادم'?'bf4':'bgone';
+    return`<tr class="clickable-row" data-fid="${b.fid}"><td style="font-size:9px;color:#aaa">${b.fid?.slice(0,5)}</td><td>${b.name}</td><td><b>${b.roomId}</b></td><td><b>${tot.toLocaleString()} دج</b></td><td><span class="badge ${sc}">${b.status}</span></td></tr>`;
+  }).join('');
+  document.querySelectorAll('#inv-tbody .clickable-row').forEach(row=>row.onclick=()=>{const bk=BOOKINGS.find(b=>b.fid===row.dataset.fid);if(bk)showInvoice(bk);});
+}
+
+function showInvoice(b){
+  const n=nights(b.checkin,b.checkout),price=b.type==='F3'?6000:8000,total=n*price;
+  document.getElementById('inv-preview').innerHTML=`
+    <div class="ph">فاتورة <b>#${b.fid?.slice(0,8)?.toUpperCase()}</b></div>
+    <div class="inv-box">
+      <div class="inv-head">
+        <div>
+          <img src="assets/logo.png" style="height:44px;margin-bottom:6px;display:block;border-radius:4px">
+          <div class="inv-brand">مجمع نسيب للعطل الداخلية</div>
+          <div class="inv-sub">RÉSIDENCE FATEH TOURISME</div>
+          <div class="inv-sub">Cité 176 logements, zone urbaine ouest — Biskra</div>
+          <div class="inv-sub">✆ 0555009760 · 0555009758 · 0555009761</div>
+          <div class="inv-sub">Fax: 033500954 · 023201086</div>
+          <div class="inv-sub">✉ fatehresidence@gmail.com</div>
+        </div>
+        <div class="inv-num">فاتورة<b>#${b.fid?.slice(0,8)?.toUpperCase()}</b><span>${fmt(todayStr)}</span></div>
+      </div>
+      <div class="inv-client">النزيل: <b>${b.name}</b> · هاتف: <b>${b.phone}</b>${b.idNum?` · الهوية: <b>${b.idNum}</b>`:''}</div>
+      <div class="inv-row"><span>الشقة</span><span>${b.roomId} [${b.type}] — BLOC ${roomById(b.roomId)?.bloc}</span></div>
+      <div class="inv-row"><span>تاريخ الوصول</span><span>${fmt(b.checkin)}</span></div>
+      <div class="inv-row"><span>تاريخ المغادرة</span><span>${fmt(b.checkout)}</span></div>
+      <div class="inv-row"><span>عدد الأشخاص</span><span>${b.pax}</span></div>
+      <div class="inv-row"><span>عدد الليالي</span><span><b>${n}</b></span></div>
+      <div class="inv-row"><span>السعر / ليلة</span><span>${price.toLocaleString()} دج</span></div>
+      ${b.note?`<div class="inv-row"><span>ملاحظات</span><span>${b.note}</span></div>`:''}
+      <div class="inv-total"><span>المبلغ الإجمالي</span><span>${total.toLocaleString()} دج</span></div>
+    </div>
+    <button class="btn btng" onclick="window.print()" style="margin-top:10px;width:100%">🖨️ طباعة الفاتورة</button>`;
+}
+</script>
+</body>
+</html>
